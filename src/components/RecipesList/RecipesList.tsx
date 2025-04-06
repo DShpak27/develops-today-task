@@ -1,46 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-
-interface Recipe {
-    id: number;
-    title: string;
-    image: string;
-}
-
-interface RecipesResponse {
-    results: Recipe[];
-}
-
-interface SearchParams {
-    query?: string;
-    cuisine?: string;
-    maxReadyTime?: string;
-}
-
-async function getRecipes(searchParams: SearchParams): Promise<RecipesResponse> {
-    const { query, cuisine, maxReadyTime } = searchParams;
-
-    if (!query && !cuisine && !maxReadyTime) {
-        return { results: [] };
-    }
-
-    const params = new URLSearchParams();
-    if (query) params.append("query", query);
-    if (cuisine) params.append("cuisine", cuisine);
-    if (maxReadyTime) params.append("maxReadyTime", maxReadyTime);
-    params.append("apiKey", process.env.NEXT_PUBLIC_SPOONACULAR_API_KEY || "");
-
-    const res = await fetch(
-        `https://api.spoonacular.com/recipes/complexSearch?${params.toString()}`,
-        { next: { revalidate: 60 } }, // Cache for 1 minute
-    );
-
-    if (!res.ok) {
-        throw new Error("Failed to fetch recipes");
-    }
-
-    return res.json();
-}
+import { getRecipes, type SearchParams } from "@/components/RecipesList/RecipesList.funcs";
 
 export default async function RecipesList({ searchParams }: { searchParams: SearchParams }) {
     try {
@@ -79,7 +39,7 @@ export default async function RecipesList({ searchParams }: { searchParams: Sear
             </div>
         );
     } catch (error) {
-        console.error("Error fetching recipes:", error);
+        console.error("API Error:", error);
         return (
             <div className="text-center py-10">
                 <p className="text-lg text-red-600">Error loading recipes. Please try again later.</p>

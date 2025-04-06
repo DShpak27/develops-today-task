@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Suspense } from "react";
-import RecipeDetail from "@/components/RecipeDetail";
-import LoadingSpinner from "@/components/LoadingSpinner";
+import RecipeDetail from "@/components/RecipeDetail/RecipeDetail";
+import LoadingSpinner from "@/components/LoadingSpinner/LoadingSpinner";
 
 export const revalidate = 60;
 

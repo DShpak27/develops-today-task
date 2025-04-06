@@ -1,32 +1,5 @@
 import Image from "next/image";
-
-interface Ingredient {
-    id: number;
-    original: string;
-}
-
-interface RecipeDetails {
-    id: number;
-    title: string;
-    image: string;
-    readyInMinutes: number;
-    servings: number;
-    extendedIngredients: Ingredient[];
-    summary: string;
-}
-
-async function getRecipeDetails(id: string): Promise<RecipeDetails> {
-    const res = await fetch(
-        `https://api.spoonacular.com/recipes/${id}/information?apiKey=${process.env.NEXT_PUBLIC_SPOONACULAR_API_KEY}`,
-        { next: { revalidate: 60 } },
-    );
-
-    if (!res.ok) {
-        throw new Error("Failed to fetch recipe details");
-    }
-
-    return res.json();
-}
+import { getRecipeDetails } from "@/components/RecipeDetail/RecipeDetail.funcs";
 
 export default async function RecipeDetail({ id }: { id: string }) {
     try {
@@ -77,7 +50,7 @@ export default async function RecipeDetail({ id }: { id: string }) {
             </div>
         );
     } catch (error) {
-        console.error("Error loading recipe details:", error);
+        console.error("API Error:", error);
         return (
             <div className="text-center py-10">
                 <p className="text-lg text-red-600">Error loading recipe details. Please try again later.</p>

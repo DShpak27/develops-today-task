@@ -1,23 +1,28 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { FormValues, formSchema, initialFormValues } from "@/app/page.funcs";
 
 export default function Home() {
-    const [query, setQuery] = useState<string>("");
-    const [cuisine, setCuisine] = useState<string>("");
-    const [maxTime, setMaxTime] = useState<string>("");
     const router = useRouter();
 
-    const isFormValid: boolean = Boolean(query || cuisine || maxTime);
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isValid, isDirty },
+    } = useForm<FormValues>({
+        resolver: zodResolver(formSchema),
+        defaultValues: initialFormValues,
+        mode: "onChange",
+    });
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-
+    const onSubmit = (data: FormValues) => {
         const params = new URLSearchParams();
-        if (query) params.append("query", query);
-        if (cuisine) params.append("cuisine", cuisine);
-        if (maxTime) params.append("maxReadyTime", maxTime);
+        if (data.query) params.append("query", data.query);
+        if (data.cuisine) params.append("cuisine", data.cuisine);
+        if (data.maxReadyTime) params.append("maxReadyTime", data.maxReadyTime);
 
         router.push(`/recipes?${params.toString()}`);
     };
@@ -27,19 +32,19 @@ export default function Home() {
             <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
                 <h1 className="text-2xl font-bold text-center mb-6">Recipe Search</h1>
 
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                     <div>
                         <label htmlFor="query" className="block text-sm font-medium text-gray-700">
                             Recipe Query
                         </label>
                         <input
+                            {...register("query")}
                             type="text"
                             id="query"
-                            value={query}
-                            onChange={e => setQuery(e.target.value)}
                             placeholder="e.g., pasta, chicken"
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                         />
+                        {errors.query && <p className="mt-1 text-sm text-red-600">{errors.query.message}</p>}
                     </div>
 
                     <div>
@@ -47,9 +52,8 @@ export default function Home() {
                             Cuisine
                         </label>
                         <select
+                            {...register("cuisine")}
                             id="cuisine"
-                            value={cuisine}
-                            onChange={e => setCuisine(e.target.value)}
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                         >
                             <option value="">Select cuisine</option>
@@ -59,28 +63,33 @@ export default function Home() {
                             <option value="Indian">Indian</option>
                             <option value="Japanese">Japanese</option>
                         </select>
+                        {errors.cuisine && <p className="mt-1 text-sm text-red-600">{errors.cuisine.message}</p>}
                     </div>
 
                     <div>
-                        <label htmlFor="maxTime" className="block text-sm font-medium text-gray-700">
+                        <label htmlFor="maxReadyTime" className="block text-sm font-medium text-gray-700">
                             Maximum Cooking Time (minutes)
                         </label>
                         <input
+                            {...register("maxReadyTime")}
                             type="number"
-                            id="maxTime"
-                            value={maxTime}
-                            onChange={e => setMaxTime(e.target.value)}
+                            id="maxReadyTime"
                             min="1"
                             placeholder="e.g., 30"
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                         />
+                        {errors.maxReadyTime && (
+                            <p className="mt-1 text-sm text-red-600">{errors.maxReadyTime.message}</p>
+                        )}
                     </div>
+
+                    {errors.root?.message && <p className="text-sm text-red-600">{errors.root.message}</p>}
 
                     <button
                         type="submit"
-                        disabled={!isFormValid}
+                        disabled={!isDirty || !isValid}
                         className={`w-full py-2 px-4 rounded-md focus:outline-none ${
-                            isFormValid
+                            isDirty && isValid
                                 ? "bg-indigo-600 hover:bg-indigo-700 text-white"
                                 : "bg-gray-300 text-gray-500 cursor-not-allowed"
                         }`}
