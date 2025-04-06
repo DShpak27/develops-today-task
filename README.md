@@ -23,37 +23,21 @@ A Next.js application that allows users to search for recipes with advanced filt
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/your-username/recipe-finder.git
-    cd recipe-finder
+    git clone https://github.com/DShpak27/develops-today-task.git
+    cd develops-today-task
     ```
 
 2. Install dependencies:
 
-    ```bash
-    npm install
-    # or
-    yarn
-    ```
+```bash
+npm install
+```
 
-3. Create a `.env.local` file in the root directory with your Spoonacular API key:
+или
 
-    ```
-    NEXT_PUBLIC_SPOONACULAR_API_KEY=your_spoonacular_api_key_here
-    ```
-
-4. Update Next.js configuration:
-   Create or update `next.config.js` file in the root directory to allow images from Spoonacular:
-
-    ```js
-    /** @type {import('next').NextConfig} */
-    const nextConfig = {
-        images: {
-            domains: ["img.spoonacular.com"],
-        },
-    };
-
-    module.exports = nextConfig;
-    ```
+```bash
+yarn
+```
 
 ### Running the Application
 
@@ -71,7 +55,6 @@ A Next.js application that allows users to search for recipes with advanced filt
 
 - `src/app` - Next.js app router pages and layouts
 - `src/components` - React components
-- `src/styles` - Global CSS and Tailwind configuration
 
 ## Technologies Used
 
