@@ -28,7 +28,7 @@ export default function Home() {
     };
 
     return (
-        <div className="flex h-[calc(100vh-64px)] flex-col items-center justify-center p-4 bg-gray-50">
+        <div className="flex min-h-[calc(100vh-64px)] flex-col items-center justify-center p-4 bg-gray-50">
             <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
                 <h1 className="text-xl font-bold text-center mb-6 text-gray-600">Recipe Search</h1>
 

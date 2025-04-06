@@ -13,7 +13,7 @@ interface SearchParams {
 
 export default function RecipesPage({ searchParams }: { searchParams: SearchParams }) {
     return (
-        <div className="p-4 bg-gray-50 h-[calc(100vh-64px)]">
+        <div className="p-4 bg-gray-50 min-h-[calc(100vh-64px)]">
             <div className="max-w-6xl mx-auto">
                 <div className="mb-6 flex justify-between items-center">
                     <h1 className="text-2xl font-bold">Recipes</h1>

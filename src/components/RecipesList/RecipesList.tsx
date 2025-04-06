@@ -4,7 +4,8 @@ import { getRecipes, type SearchParams } from "@/components/RecipesList/RecipesL
 
 export default async function RecipesList({ searchParams }: { searchParams: SearchParams }) {
     try {
-        const data = await getRecipes(searchParams);
+        const params = await searchParams;
+        const data = await getRecipes(params);
 
         if (!data.results || data.results.length === 0) {
             return (
@@ -15,7 +16,7 @@ export default async function RecipesList({ searchParams }: { searchParams: Sear
         }
 
         const stringParams: Record<string, string> = {};
-        Object.entries(searchParams).forEach(([key, value]) => {
+        Object.entries(params).forEach(([key, value]) => {
             if (typeof value === "string") {
                 stringParams[key] = value;
             }
