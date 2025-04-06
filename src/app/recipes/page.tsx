@@ -13,11 +13,11 @@ interface SearchParams {
 
 export default function RecipesPage({ searchParams }: { searchParams: SearchParams }) {
     return (
-        <main className="min-h-screen p-4 bg-gray-50">
+        <div className="p-4 bg-gray-50 h-[calc(100vh-64px)]">
             <div className="max-w-6xl mx-auto">
                 <div className="mb-6 flex justify-between items-center">
                     <h1 className="text-2xl font-bold">Recipes</h1>
-                    <Link href="/" className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">
+                    <Link href="/" className="px-4 py-2 bg-[#166fd4] text-white rounded-md hover:bg-[#163fd4]">
                         Back to Search
                     </Link>
                 </div>
@@ -26,6 +26,6 @@ export default function RecipesPage({ searchParams }: { searchParams: SearchPara
                     <RecipesList searchParams={searchParams} />
                 </Suspense>
             </div>
-        </main>
+        </div>
     );
 }

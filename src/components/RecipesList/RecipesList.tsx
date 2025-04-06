@@ -14,11 +14,23 @@ export default async function RecipesList({ searchParams }: { searchParams: Sear
             );
         }
 
+        const stringParams: Record<string, string> = {};
+        Object.entries(searchParams).forEach(([key, value]) => {
+            if (typeof value === "string") {
+                stringParams[key] = value;
+            }
+        });
+
         return (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-black/75">
                 {data.results.map(recipe => (
                     <Link
-                        href={`/recipes/${recipe.id}`}
+                        href={{
+                            pathname: `/recipes/${recipe.id}`,
+                            query: {
+                                returnTo: new URLSearchParams(stringParams).toString(),
+                            },
+                        }}
                         key={recipe.id}
                         className="block bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow"
                     >

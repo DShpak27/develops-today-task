@@ -6,7 +6,7 @@ export default async function RecipeDetail({ id }: { id: string }) {
         const recipe = await getRecipeDetails(id);
 
         return (
-            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+            <div className="bg-white rounded-lg shadow-md overflow-hidden text-black/75">
                 <div className="relative h-64 w-full">
                     {recipe.image && (
                         <Image

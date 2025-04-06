@@ -28,9 +28,9 @@ export default function Home() {
     };
 
     return (
-        <main className="flex min-h-screen flex-col items-center justify-center p-4 bg-gray-50">
+        <div className="flex h-[calc(100vh-64px)] flex-col items-center justify-center p-4 bg-gray-50">
             <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
-                <h1 className="text-2xl font-bold text-center mb-6">Recipe Search</h1>
+                <h1 className="text-xl font-bold text-center mb-6 text-gray-600">Recipe Search</h1>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                     <div>
@@ -90,14 +90,14 @@ export default function Home() {
                         disabled={!isDirty || !isValid}
                         className={`w-full py-2 px-4 rounded-md focus:outline-none ${
                             isDirty && isValid
-                                ? "bg-indigo-600 hover:bg-indigo-700 text-white"
-                                : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                                ? "bg-[#166fd4] hover:bg-[#163fd4] cursor-pointer text-white"
+                                : "bg-gray-300 text-gray-500"
                         }`}
                     >
                         Next
                     </button>
                 </form>
             </div>
-        </main>
+        </div>
     );
 }

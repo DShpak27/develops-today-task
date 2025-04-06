@@ -9,16 +9,22 @@ interface RecipeDetailPageProps {
     params: {
         id: string;
     };
+    searchParams: {
+        returnTo?: string;
+    };
 }
 
-export default function RecipeDetailPage({ params }: RecipeDetailPageProps) {
+export default function RecipeDetailPage({ params, searchParams }: RecipeDetailPageProps) {
     const { id } = params;
+    const { returnTo } = searchParams;
+
+    const backUrl = returnTo ? `/recipes?${returnTo}` : "/recipes";
 
     return (
-        <main className="min-h-screen p-4 bg-gray-50">
+        <div className="p-4 bg-gray-50 h-[calc(100vh-64px)]">
             <div className="max-w-4xl mx-auto">
                 <div className="mb-6">
-                    <Link href="/recipes" className="inline-flex items-center text-indigo-600 hover:text-indigo-800">
+                    <Link href={backUrl} className="inline-flex items-center text-indigo-600 hover:text-indigo-800">
                         <span>← Back to recipes</span>
                     </Link>
                 </div>
@@ -27,6 +33,6 @@ export default function RecipeDetailPage({ params }: RecipeDetailPageProps) {
                     <RecipeDetail id={id} />
                 </Suspense>
             </div>
-        </main>
+        </div>
     );
 }
