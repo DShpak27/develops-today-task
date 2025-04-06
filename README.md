@@ -33,7 +33,7 @@ A Next.js application that allows users to search for recipes with advanced filt
 npm install
 ```
 
-или
+or
 
 ```bash
 yarn
