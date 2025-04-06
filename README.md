@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Recipe Finder App
+
+A Next.js application that allows users to search for recipes with advanced filters, display results, and view detailed information for each recipe.
+
+## Features
+
+- Search recipes by keyword, cuisine, and maximum preparation time
+- View search results with images
+- View detailed recipe information including ingredients and preparation time
+- Responsive design built with Tailwind CSS
+- Server-side rendering with Next.js
+- Data caching for improved performance
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js 14.6.0 or newer
+- npm or yarn
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repository:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+    ```bash
+    git clone https://github.com/your-username/recipe-finder.git
+    cd recipe-finder
+    ```
 
-## Learn More
+2. Install dependencies:
 
-To learn more about Next.js, take a look at the following resources:
+    ```bash
+    npm install
+    # or
+    yarn
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. Create a `.env.local` file in the root directory with your Spoonacular API key:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+    ```
+    NEXT_PUBLIC_SPOONACULAR_API_KEY=your_spoonacular_api_key_here
+    ```
 
-## Deploy on Vercel
+4. Update Next.js configuration:
+   Create or update `next.config.js` file in the root directory to allow images from Spoonacular:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    ```js
+    /** @type {import('next').NextConfig} */
+    const nextConfig = {
+        images: {
+            domains: ["img.spoonacular.com"],
+        },
+    };
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+    module.exports = nextConfig;
+    ```
+
+### Running the Application
+
+1. Start the development server:
+
+    ```bash
+    npm run dev
+    # or
+    yarn dev
+    ```
+
+2. Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
+
+## Project Structure
+
+- `src/app` - Next.js app router pages and layouts
+- `src/components` - React components
+- `src/styles` - Global CSS and Tailwind configuration
+
+## Technologies Used
+
+- [Next.js](https://nextjs.org/) - React framework for server-side rendering
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [Spoonacular API](https://spoonacular.com/food-api) - Recipe data source
+
+### API Rate Limits
+
+The free tier of Spoonacular API has daily request limits. If you encounter API errors, you might have exceeded the daily quota.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
